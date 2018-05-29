@@ -54,6 +54,7 @@ public class TreeViewWithItems<T extends HierarchyData<T>> extends TreeView<T> {
       */
             public TreeViewWithItems(TreeItem<T> root) {
         super(root);
+        root.setExpanded(true);
         init();
     }
 

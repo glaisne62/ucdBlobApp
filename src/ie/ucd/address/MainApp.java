@@ -1,6 +1,8 @@
 package ie.ucd.address;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.stream.Collectors;
 
 import ie.ucd.address.model.BlobData;
 import javafx.application.Application;
@@ -8,14 +10,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class MainApp extends Application {
 
     private Stage primaryStage;
     private BorderPane rootLayout;
+    private AnchorPane storageExplorer;
     
     // ... AFTER THE OTHER VARIABLES ...
 
@@ -51,6 +56,7 @@ public class MainApp extends Application {
         initRootLayout();
 
         showStorageExplorer();
+        
     }
 
     /**
@@ -84,6 +90,19 @@ public class MainApp extends Application {
 
             // Set person overview into the center of root layout.
             rootLayout.setCenter(storageExplorer);
+            
+            Text text = new Text();
+            
+    	    //selectionTreeView.setRoot(theRoot);
+           rootLayout.setOnDragOver(evt -> {
+               if (evt.getDragboard().hasFiles()) {
+                   evt.acceptTransferModes(TransferMode.LINK);
+               }
+           });
+           rootLayout.setOnDragDropped(evt -> {
+               System.out.println("HAppened");
+               evt.setDropCompleted(true);
+           });
         } catch (IOException e) {
             e.printStackTrace();
         }

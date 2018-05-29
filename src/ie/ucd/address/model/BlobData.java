@@ -36,6 +36,6 @@ private ObservableList<BlobData> children = FXCollections.observableArrayList();
     }
 
     public String toString(){
-        return ""+name;
+        return name;
     }
 }
